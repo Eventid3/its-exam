@@ -7,28 +7,6 @@ Perspektiver til relevante øvelser fra undervisningen.
 
 ---
 
-### Kryptologi - Grundbegreber
-
-- Encrypt/encipher
-- Decrypt/decipher
-- Encode/decode 🤔
-
-- Substitution -> Confusion
-- Transposition -> Diffusion
-
----
-
-### Kryptologi - C-I-A
-
-- Confidentiality
-- Integrity
-- (Availability)
-- Authentication
-- Authenticity
-- Accountability
-
----
-
 ### Asymmetrisk kryptering
 
 - To nøgler
