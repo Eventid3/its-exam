@@ -1,4 +1,4 @@
-file?=monads-and-functors.md
+file?=1-grundbegreber.md
 pdfname=$(patsubst %.md,%.pdf,$(file))
 htmlname=$(patsubst %.md,%.html,$(file))
 
@@ -7,7 +7,7 @@ MD_FILES=$(wildcard *.md)
 PDF_FILES=$(patsubst %.md,pdfs/%.pdf,$(MD_FILES))
 
 slide:
-	npx @marp-team/marp-cli@latest -w $(file) --allow-local-files -o ./slides/$(htmlname) & brave ~/uni/6_semester/afp/afp-exam/slides/$(htmlname)
+	npx @marp-team/marp-cli@latest -w $(file) --allow-local-files -o ./slides/$(htmlname) & brave ~/uni/6_semester/its/its-exam/slides/$(htmlname)
 
 pdf:
 	pandoc $(file) -o pdfs/$(pdfname)
