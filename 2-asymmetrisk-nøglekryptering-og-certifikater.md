@@ -1,3 +1,14 @@
+---
+author: Esben Inglev
+theme: gaia
+date: Jan 2026
+paginate: true
+style: |
+  section {
+    font-size: 30px;
+  }
+---
+
 # Asymmetrisk nøglekryptering og digitale certifikater
 
 Redegør for og vis eksempler på asymmetrisk nøglekryptering, samt anvendelsen af

@@ -1,3 +1,14 @@
+---
+author: Esben Inglev
+theme: gaia
+date: Jan 2026
+paginate: true
+style: |
+  section {
+    font-size: 30px;
+  }
+---
+
 # Symmetrisk og asymmetrisk nøglekryptering og digitale signaturer
 
 Redegør for og vis eksempler på symmetrisk og asymmetrisk nøglekryptering, samt
