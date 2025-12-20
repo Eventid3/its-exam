@@ -130,6 +130,7 @@ Failures.
   - PKCE
   - Client credentials
   - ...
+- AccessToken
 
 ---
 
@@ -138,6 +139,7 @@ Failures.
 - Overbygning på OAuth2
 - Tiløjer authentication
 - Giver mulighed for at dele logins mellem apps
+- AccessToken & IDToken
 
 ---
 
