@@ -141,6 +141,58 @@ Failures.
 
 ---
 
-### OWASP A7
+### OWASP Top 10 - A07:2021
 
--
+**Identification and Authentication Failures**
+
+- Dækker svage autentifikationsmekanismer og implementeringsfejl
+- Kritiske områder:
+  - Sikker kommunikation
+  - Opbevaring af adgangskoder
+  - Session management
+  - Brute force beskyttelse
+
+---
+
+### Sikker kommunikation
+
+**HTTPS er obligatorisk**
+
+- Beskytter mod Man-in-the-Middle attacks
+- Krypterer credentials og tokens under transport
+
+**Aldrig send credentials i URL**
+
+- Logges i browser history og server logs
+- Brug POST requests og request body
+
+---
+
+### Opbevaring af adgangskoder
+
+**Hash passwords - aldrig klartekst**
+
+- Moderne algoritmer: bcrypt, Argon2, PBKDF2
+- Brug unikt salt per bruger
+- Aldrig MD5/SHA1/SHA256
+
+**Svage password policies**
+
+- Kræv stærke passwords (længde > kompleksitet)
+- Check mod kendte leaked passwords
+
+---
+
+### Session og brute force beskyttelse
+
+**Session Management**
+
+- Generer nye session IDs efter login
+- Secure og HttpOnly flags på cookies
+- Passende session timeout
+
+**Brute Force beskyttelse**
+
+- Rate limiting på login endpoints
+- Account lockout efter X fejlede forsøg
+- Multi-Factor Authentication (MFA)
