@@ -30,7 +30,6 @@ Samt forklar fordele og ulemper ved automatiske sårbarhedsscannere.
 **Eksempler:**
 
 - IDOR: `/api/user/123/profile` → `/api/user/124/profile`
-- Path Traversal: `file=../../../etc/passwd`
 - Force browsing til admin sider
 - CSRF
 
@@ -47,11 +46,33 @@ GET /api/user/123/profile
 
 - Angriber ændrer URL til `/api/user/124/profile`
 - Får adgang til anden brugers data
+- Horizontal Privilege Escalation
 
 **Problem:**
 
-- Ingen validering af om requester ejer resourcen
-- Kun URL obfuscation som sikkerhed
+- Ingen server-side validering af om requester ejer resourcen
+
+Løsning:
+
+- Valideringen skal ske server-side inden sensitiv data sendes
+
+---
+
+### A01 - Vertical Privilege Escalation
+
+**Angular**
+
+```typescript
+@if (authCtrl.isAdmin) {
+  <button (click)="userCtrl.deleteUser()">
+}
+@if (authCtrl.isAdmin) {
+  <section>sensitive information</section>
+}
+```
+
+- **Kritisk**: requesten skal tjekkes server-side
+- Client-side er til useability
 
 ---
 
