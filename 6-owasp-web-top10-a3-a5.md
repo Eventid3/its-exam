@@ -132,7 +132,7 @@ found 23 vulnerabilities (5 moderate, 18 high)
 
 ### A03: Sikringsmetoder (fortsat)
 
-**4. Hærdet CI/CD Pipeline**
+**4. Hardned CI/CD Pipeline**
 
 - Implementer access control og MFA
 - Audit logs for alle ændringer
@@ -156,12 +156,10 @@ found 23 vulnerabilities (5 moderate, 18 high)
 
 **Typer:**
 
-- **SQL Injection** (SQLi)
+- **SQL Injection**
+- XML Injection
 - **Cross-Site Scripting** (XSS)
-- NoSQL Injection
-- OS Command Injection
-- LDAP Injection
-- Expression Language Injection
+- ...
 
 **Status:** Faldt fra #3 (2021) til #5 (2025), men stadig kritisk
 
@@ -171,7 +169,7 @@ found 23 vulnerabilities (5 moderate, 18 high)
 
 **Usikker kode:**
 
-```java
+```
 String query = "SELECT * FROM users WHERE
                username='" + userInput + "'";
 ```
@@ -223,10 +221,6 @@ site.com/search?q=<script>alert('XSS')</script>
 - Defacement af website
 - Udfør handlinger som ofret
 - Installere malware
-
-**Real-world eksempel:**
-
-- Twitter worm (2010): Clickjacking + XSS spredte sig til 1M+ brugere
 
 ---
 
@@ -314,12 +308,12 @@ Content-Security-Policy:
 ```html
 <iframe src="https://bank.com/transfer" style="opacity:0; position:absolute">
 </iframe>
-<button>GRATIS iPod! KLIK HER!</button>
+<button>GRATIS iPad! KLIK HER!</button>
 ```
 
 **Hvad sker der:**
 
-- Bruger ser "GRATIS iPod" knappen
+- Bruger ser "GRATIS iPad" knappen
 - Klikker på den
 - Klikket rammer den skjulte iframe
 - Aktiverer "Overfør penge" på bank.com
@@ -387,26 +381,6 @@ Trin 6: Angriber kontrollerer router, IoT devices etc.
 
 ---
 
-### DNS Rebinding - Mål
-
-**Typiske targets:**
-
-- Home routers med default passwords
-- IoT devices (smart thermostats, cameras)
-- Internal web applications
-- Development servers
-- UPnP services
-
-**Konsekvenser:**
-
-- Firewall bypass
-- Data exfiltration fra internal network
-- Device control (ændre router settings)
-- DDoS participation
-- De-anonymization (find real IP bag VPN)
-
----
-
 ### DNS Rebinding - Beskyttelse
 
 **1. DNS Validation**
@@ -419,181 +393,45 @@ Trin 6: Angriber kontrollerer router, IoT devices etc.
 - Verificer Host header i alle requests
 - Reject requests med unexpected hosts
 
-**3. Authentication**
+3. Browser DNS Caching
 
-- Kræv autentificering for ALLE services
-- Selv på local network
-
----
-
-### DNS Rebinding - Beskyttelse (fortsat)
-
-**4. HTTPS/TLS**
-
-- Brug HTTPS også på internal services
-- Certificate validation hjælper
-
-**5. Browser-level:**
-
-- Implementer Local Network Access spec
-- CORS-RFC1918 segmentering
-
-**6. Network Segmentation**
-
-- Isoler IoT devices på separat VLAN
-- Firewall rules mellem segmenter
+- Browsere omgår den korte TTL
 
 ---
 
 ### Web Application Firewall (WAF)
 
-## Hvad er det?
-
-**Definition:** Firewall der filtrerer HTTP/HTTPS traffic på applikationslaget (Layer 7)
+**Definition:** Firewall på applikationslaget (Layer 7) der filtrerer HTTP/HTTPS traffic
 
 **Funktion:**
 
 - Analyserer HTTP requests og responses
 - Blokerer malicious requests før de når serveren
-- Beskytter mod OWASP Top 10 sårbarheder
 - Regel-baseret eller ML-baseret detection
+- Position: Reverse proxy mellem klienter og server
 
-**Position:** Mellem klienter og web applikation (reverse proxy)
+**Security Models:**
 
----
-
-### WAF - Hvordan virker det?
-
-**1. Positive Security Model**
-
-- Whitelist: Tillad kun kendt godt traffic
-- Strengere, men kræver mere konfiguration
-
-**2. Negative Security Model**
-
-- Blacklist: Blokér kendt dårligt traffic
-- Baseret på signatures og patterns
-
-**3. Hybrid Model**
-
-- Kombination af begge
-- Mest almindelig i praksis
+- **Positive (Whitelist):** Tillad kun kendt godt traffic
+- **Negative (Blacklist):** Blokér kendt dårligt traffic
+- **Hybrid:** Kombination - mest almindelig
 
 ---
 
-### WAF - Beskyttelsesmekanismer
+### WAF - Beskyttelse og Deployment
 
-**Mod Injection:**
+**Beskytter mod:**
 
-- Pattern matching for SQL syntax
-- Script tag detection
-- Command injection signatures
+- SQL Injection (pattern matching for SQL syntax)
+- XSS (script tag detection, HTML encoding enforcement)
+- Rate limiting og session validation
+- OWASP CRS: Open-source regel set der dækker Top 10
 
-**Mod XSS:**
+**Deployment:**
 
-- HTML/JavaScript detection i input
-- Output encoding enforcement
+- **Cloud WAF:** Hurtig deployment, auto-scaling (Cloudflare, AWS WAF)
+- **On-premise:** Fuld kontrol, compliance (F5, ModSecurity)
 
-**Mod Access Control:**
-
-- Session management validation
-- Authentication enforcement
-- Rate limiting
-
----
-
-### WAF - Funktioner
-
-**Core Capabilities:**
-
-- **Protocol Normalization:** Parser HTTP konsistent
-- **Real-time Inspection:** Inline analyse (< 5ms latency)
-- **Rule-based Policies:** OWASP CRS (Core Rule Set)
-- **Signature Detection:** Kendte exploit patterns
-- **Behavioral Analysis:** Anomali detection
-- **Virtual Patching:** Beskyt uden kode ændringer
-- **Logging & Alerting:** SIEM integration
-
----
-
-### WAF - OWASP Core Rule Set
-
-**ModSecurity CRS:**
-
-- Open-source regel set
-- Dækker OWASP Top 10
-- Kontinuerligt opdateret
-- Community-driven
-
-**Paranoia Levels (PL1-PL4):**
-
-- PL1: Basic protection, færre false positives
-- PL4: Maximum protection, flere false positives
-- Trade-off mellem sikkerhed og brugervenlighed
-
----
-
-### WAF - Deployment Options
-
-**1. Cloud-based WAF**
-
-- Hurtig deployment
-- Auto-scaling
-- DDoS protection included
-- Eksempler: Cloudflare, AWS WAF, Azure WAF
-
-**2. On-premise WAF**
-
-- Fuld kontrol
-- Lav latency
-- Data sovereignty compliance
-- Eksempler: F5 BIG-IP, ModSecurity
-
-**3. Hybrid**
-
-- Kombination af cloud og on-prem
-
----
-
-### WAF - Begrænsninger
-
-**WAF er IKKE en silver bullet:**
-
-- Kan bypasses (encoding tricks, obfuscation)
-- False positives kræver tuning
-- Kompleks konfiguration
-- Performance overhead
-- Beskytter ikke mod alle angreb
-- Skal kombineres med andre sikkerhedsforanstaltninger
-
-**Best Practice:** Defense in Depth
-
-- Secure coding
-- Input validation
-- Output encoding
-- - WAF som ekstra lag
-
----
-
-### WAF - Real-world Brug
-
-**PCI DSS Requirement 6.4.2:**
-
-- Kræver automatiserede løsninger til web app sikkerhed
-- WAF anbefales specifikt
-
-**Use Cases:**
-
-- E-commerce sites
-- Financial applications
-- Healthcare portals (HIPAA compliance)
-- Government services
-- API gateways
-
-**Performance:**
-
-- Enterprise WAFs: 70 Gbps throughput
-- < 5ms latency
-- Tusinder af requests/sekund
+**Begrænsning:** Ikke silver bullet - kan bypasses, kræver tuning, skal kombineres med secure coding (Defense in Depth)
 
 ---
