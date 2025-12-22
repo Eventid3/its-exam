@@ -93,7 +93,7 @@ Inddrag praktiske erfaringer fra øvelser.
 ### Praktisk øvelse – Stack Overflow
 
 - Mål: Overtagelse af eksekveringsflowet via sårbar strcpy().
-- Sårbarhed: Manglende check af inputlængde fra argv[1] (buffer overflow).
+- Sårbarhed: Manglende check af inputlængde fra `argv[1]` (buffer overflow).
 - Proces:
   - Fuzzing: Identificering af "offset" til returadressen (crash ved unik streng).
   - Adresse-læk: Find startadressen for bufferen (typisk via GDB).
