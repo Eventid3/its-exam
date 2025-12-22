@@ -72,7 +72,6 @@ Løsning:
 ```
 
 - **Kritisk**: requesten skal tjekkes server-side
-- Client-side er til useability
 
 ---
 
@@ -127,31 +126,42 @@ Løsning:
 
 ---
 
-### A02 - Cloud & CORS eksempler
+### A02 - Debug Info Eksempel
 
-**Fejlkonfigureret CORS:**
+ASP.NET Trace Information:
+`<http://www.domain.com/Trace.axd``>
 
-```javascript
-Access-Control-Allow-Origin: *
-Access-Control-Allow-Credentials: true
-```
+- Eksponerer detaljeret debug information
+- Stack traces synlige for alle
+- Intern system information lækket
 
-- Tillader alle domæner at læse brugerdata
+**Problem:** Debug mode aktiveret i produktion
 
-**Cloud misconfigurations:**
+---
 
-- S3 Buckets med public access
-- Eksponerede admin panels og dashboards
+### A02 - Eksempler fortsat
+
+Missing security hardening
+
+- Improperly configured permissions på cloud services
+- Security settings i app servers, frameworks, libraries ikke sat korrekt
+- Server sender ikke security headers
+
+Backward compatibility prioriteret over sikkerhed
+
+- Ældre, usikre konfigurationer bibeholdt
+- Legacy features ikke disabled
 
 ---
 
 ### A02 - Forsvar
 
-**Hardening**
+Hardening process
 
-- Fjern alt unødvendigt
+- Fjern alle unnecessary features
 - Disable default accounts
 - Ændr alle default passwords
+- Minimal installation
 
 **Security headers**
 
@@ -161,11 +171,11 @@ Content-Security-Policy: default-src 'self'
 X-Frame-Options: DENY
 ```
 
-**Best practices**
+**Error handling**
 
-- Regular updates og patching
-- Separate environments (dev/staging/prod)
 - Generic error messages til brugere
+- Detaljeret logging kun server-side
+- Disable debug info i produktion
 
 ---
 
