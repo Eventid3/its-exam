@@ -167,20 +167,25 @@ Svær:   00000000FF... (få valide hashes)
 
 ---
 
-### Praktisk mining erfaring
+### Praktisk erfaring fra øvelser
 
 **På egen computer:**
 
 - Moderne CPU: ~1-10 MH/s
-- Bitcoin difficulty: Urealistisk
-- Test-netværk med lav difficulty: Muligt
 
 **Mine forsøg:**
 
 ```
-Difficulty = 4 leading zeros: ~5 sekunder
-Difficulty = 6 leading zeros: ~5 minutter
-Difficulty = 8 leading zeros: timer/dage
+…/exercises/blockchain ❯ ./main
+Difficulty 5. Mining block 1...
+Block mined: 0000064590b09f3a53711dadea123948fefc0a4358ddf0504b058fd5d20e75aa
+Mining took 2495 milliseconds
+Difficulty 6. Mining block 2...
+Block mined: 000000254a0dc57e84a0c76d221f01081771a61f73c92f499cc6411e39d74511
+Mining took 70527 milliseconds
+Difficulty 7. Mining block 3...
+Block mined: 000000053a07229e51ed28ac675adcf4355413701a9a07efe9473d1597908df8
+Mining took 161300 milliseconds
 ```
 
 ---
@@ -214,4 +219,3 @@ Difficulty = 8 leading zeros: timer/dage
 - Skalerbarhed (lav throughput)
 - Energiforbrug (PoW)
 - Irreversibilitet (fejl kan ikke rettes)
-
