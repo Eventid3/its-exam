@@ -5,7 +5,7 @@ date: Jan 2026
 paginate: true
 style: |
   section {
-    font-size: 30px;
+    font-size: 26px;
   }
 ---
 
@@ -15,6 +15,13 @@ Redegør for og vis eksempler på symmetrisk og asymmetrisk nøglekryptering, sa
 anvendelsen af disse i digitale signaturer.
 Samt forklar hvordan digitale signaturer anvendes og stoles på i praksis.
 Perspektiver til øvelser fra undervisningen hvor signering anvendes.
+
+<!--
+- Introduktion: Symmetrisk/asymmetrisk kryptering, digitale signaturer.
+- Agenda: Redegørelse, eksempler, anvendelse i signaturer.
+- Fokus: Tillid til signaturer i praksis.
+- Perspektivering: Øvelser fra undervisningen.
+-->
 
 ---
 
@@ -39,6 +46,14 @@ C = E(P, K)    // C = "$\ØrEjkd`c!2k'+"
 D(C, K)        // "Hej Poul"
 ```
 
+<!--
+- Princip: Én nøgle til kryptering og dekryptering.
+- Ulempe: Nøgledistribution ('key distribution problem').
+- Fordel: Høj performance, velegnet til store datamængder.
+- Algoritmer: AES (moderne standard), DES (usikker, forældet).
+- Eksempel: Afsender krypterer med K, modtager dekrypterer med samme K.
+-->
+
 ---
 
 ### Symmetrisk Kryptering
@@ -52,6 +67,18 @@ D(C, K)        // "Hej Poul"
   - Initialization vector
   - Langsommere, men bedre diffusion
 
+<!--
+- **Stream ciphers**:
+  - Krypterer løbende (bit/byte).
+  - Fordel: Responsivt (real-tid).
+  - Ulempe: Sårbar overfor 'insertions', lav diffusion.
+- **Block ciphers**:
+  - Krypterer i faste blokke.
+  - Bruger 'chaining' (fx CBC) -> hver blok afhænger af forrige.
+  - Kræver 'Initialization Vector' (IV) for at undgå mønstre.
+  - Fordel: Høj diffusion. Ulempe: Langsommere.
+-->
+
 ---
 
 ### Asymmetrisk kryptering
@@ -63,6 +90,15 @@ D(C, K)        // "Hej Poul"
 - Typer
   - RSA
   - ECC
+
+<!--
+- Princip: Nøglepar (privat og offentlig). Privat holdes hemmelig, offentlig deles.
+- Fordel: Løser nøgledistributionsproblemet.
+- Ulempe: Beregningstungt, meget langsommere end symmetrisk.
+- RSA: ældre, baseret på primtal faktorisering
+- ECC: nyere, hurtigere med kortere nøgler
+- Begge bruges i praksis i dag
+-->
 
 ---
 
@@ -83,6 +119,15 @@ D(C, K_priv-r) -> P   // P = "Hej Poul!"
 
 - Matematisk kan nøglerne i principper byttes om.
 
+<!--
+- **Fortroligheds-eksempel**:
+  - Afsender krypterer med modtagers **offentlige** nøgle.
+  - Modtager dekrypterer med sin **private** nøgle.
+- **Bemærkning**: Kryptering med privat nøgle -> dekryptering med offentlig.
+  - Giver ikke fortrolighed.
+  - Muliggør digitale signaturer (autenticitet).
+-->
+
 ---
 
 ### Asymmetrisk kryptering
@@ -93,6 +138,13 @@ D(C, K_priv-r) -> P   // P = "Hej Poul!"
 - Fil encryption
 - SSL Certifikater
 - Signering
+
+<!--
+- **Sikker kommunikation**: Hybrid kryptering (fx TLS/SSL). Asymmetrisk til sikker udveksling af symmetrisk nøgle.
+- **Filkryptering**: Sikker opbevaring af filer.
+- **SSL/TLS Certifikater**: Binder identitet (fx domæne) til en offentlig nøgle. Grundlag for web-tillid.
+- **Signering**: Beviser afsender (autenticitet) og dataintegritet.
+-->
 
 ---
 
@@ -113,7 +165,20 @@ Sender P og Sig
 ```
 H1 = Hash(P)         // "&#aF%3..."
 H2 = D(Sig, K_pub-s) // "&#aF%3..."
+H1 == H2 ? ✓
 ```
+
+<!--
+- **Formål**: Sikre autenticitet og integritet.
+- **Afsender-proces**:
+  1. Hash besked `P` -> `H` (unikt fingeraftryk).
+  2. Krypter hash `H` med afsenders **private** nøgle -> `Sig`.
+  3. Send `P` + `Sig`.
+- **Modtager-validering**:
+  1. Genberegn hash af `P` -> `H1`.
+  2. Dekrypter `Sig` med afsenders **offentlige** nøgle -> `H2`.
+  3. Sammenlign: `H1 == H2`? Hvis ja: gyldig signatur.
+-->
 
 ---
 
@@ -129,11 +194,33 @@ C = E(P, SYM)
 SYM_C = E(SYM, K_pub-r)
 ```
 
+Sender C, Sig og SYM_C til modtager
+
 **Modtager**
 
 ```
 SYM = D(SYM_C, K_priv-r)
 P = D(C, SYM)
+H1 = Hash(P)
+H2 = D(Sig, K_pub-s)
+H1 == H2 ? ✓
 ```
 
 Signering tjekkes som før
+
+<!--
+- **Hybrid model (fortrolighed + autenticitet + integritet)**. Bruges i fx PGP/S/MIME.
+- **Afsender**:
+  1. Signer besked (hash + krypter med egen privat nøgle) -> `Sig`.
+  2. Generer tilfældig symmetrisk nøgle `SYM`.
+  3. Krypter besked `P` med `SYM` -> `C`.
+  4. Krypter `SYM` med modtagers **offentlige** nøgle -> `SYM_C`.
+  5. Send: `C`, `SYM_C`, `Sig`.
+- **Modtager**:
+  1. Dekrypter `SYM` med egen **private** nøgle.
+  2. Dekrypter `C` med `SYM`.
+  3. Valider `Sig` som før.
+- **Perspektivering**: [NÆVN EKSEMPEL: Git commits, GPG, certifikater].
+-->
+
+---
