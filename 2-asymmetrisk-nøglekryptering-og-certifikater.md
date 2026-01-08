@@ -170,8 +170,8 @@ Step-by-step for modtager:
 
 ### Certifikater
 
-- Problem: Hvordan kan jeg hvem en offentlig nøgle tilhører
-- Løsning: CA (Certificate Authority)
+- Problem: Hvordan kan jeg vide hvem en offentlig nøgle tilhører
+- Løsning: Certifikater og CA (Certificate Authority)
 - Binder nøgle til identitet
 
 <!--
@@ -195,11 +195,16 @@ Step-by-step for modtager:
 5. CA sender signeret certifikat tilbage til Bob
 
 <!--
-- Processen starter med key pair generering
-- CSR indeholder identitet og public key
-- CA verificerer identiteten (vigtig step!)
-- CA signerer certifikatet med sin private key
-- Certifikatet kan nu bruges til at bevise identitet
+- Step 1: Bob genererer nøglepar (fx med openssl eller certbot)
+- Step 2: CSR = Certificate Signing Request, en anmodning om certifikat
+  - CSR indeholder: domænenavn, public key, måske organisation info
+  - Eksempel: openssl req -new -key private.key -out request.csr
+- Step 3: CA verificerer identitet (DV/OV/EV niveau, se næste slide)
+  - DV: CA tjekker Bob kontrollerer domænet
+  - Metoder: HTTP challenge, DNS challenge, email til admin@domain.com
+- Step 4: CA signerer = CA laver digital signatur med sin private key
+  - Certifikatet indeholder: navn, public key, gyldighed, CA info
+- Step 5: Bob modtager .crt eller .pem fil og installer på sin server
 -->
 
 ---
@@ -221,11 +226,21 @@ Step-by-step for modtager:
 5. Nu kan Alice stole på K_pub-Bob!
 
 <!--
-- CA's public key skal være pre-installed (truststore)
-- Verificer signaturen matematisk
-- Tjek om certifikatet er gyldigt og ikke revoked
-- Tjek om identiteten matcher hvem vi taler med
-- Chain of trust: tillid til CA = tillid til certifikat
+- Step 1: Truststore = liste af betroede CA'ers public keys
+  - Pre-installeret i browser/OS (fx Mozilla CA bundle)
+  - Windows: certmgr.msc → Trusted Root Certification Authorities
+  - Linux: /etc/ssl/certs/ca-certificates.crt
+- Step 2: Matematisk verificering - samme princip som digital signatur
+  - Hash certifikatet, dekrypter CA's signatur, sammenlign
+  - Beviser CA har underskrevet dette certifikat
+- Step 3a: Gyldighed - certifikater har "Not Before" og "Not After" dato
+  - Typisk 90 dage (Let's Encrypt) eller 1-2 år
+- Step 3b: Tilbagekaldelse - hvad hvis private key er kompromitteret?
+  - CRL = Certificate Revocation List (gammel metode, stor liste)
+  - OCSP = Online Certificate Status Protocol (real-time check)
+- Step 4: Hostname verification
+  - Besøger du https://google.com? Tjek certifikatet siger "google.com"
+- Chain of trust: Hvis vi stoler på CA, kan vi stole på certifikatet
 -->
 
 ---
@@ -237,10 +252,24 @@ Step-by-step for modtager:
 - Extended Validated (EV)
 
 <!--
-- DV: kun verificerer domæne ejerskab (hurtig og billig)
-- OV: verificerer også organisation (mellemting)
-- EV: omfattende verificering, grøn bar i browser (dyreste)
-- Højere niveau = mere tillid men også mere omkostning
+- DV = Domain Validated (hurtigste og billigste)
+  - Verificerer KUN at du kontrollerer domænet
+  - Metoder: HTTP challenge (certbot lægger fil på .well-known/acme-challenge/)
+            DNS challenge (tilføj TXT record)
+            Email (send til admin@domain.com eller webmaster@domain.com)
+  - Eksempel: Let's Encrypt bruger kun DV, gratis og automatisk
+  - Udstedes på minutter
+- OV = Organization Validated (mellem niveau)
+  - Verificerer domæne + organisationens eksistens
+  - CA tjekker firmaregistre, ringer til virksomheden
+  - Certifikatet viser organisation navn
+  - Tager dage/uger, koster penge
+- EV = Extended Validated (højeste niveau)
+  - Grundig verificering af organisation og juridisk eksistens
+  - Før i tiden: grøn adressebar med virksomhedsnavn i browseren
+  - Nu: kun organisationsnavn i certifikat detaljer (browsere fjernede UI)
+  - Bruges stadig af banker og store virksomheder
+  - Dyreste, tager længst tid
 -->
 
 ---
@@ -256,10 +285,22 @@ End-entity Certifikat (Bob's certifikat)
 ```
 
 <!--
-- Root CA's private key holdes ekstremt sikkert (offline)
-- Intermediate CA håndterer daglige operationer
-- Chain valideres ved at verificere hver signatur op til root
-- Giver bedre sikkerhed: hvis intermediate kompromitteres kan den revokes
+- Root CA = rodcertifikat, selvunderskrevet (signerer sig selv)
+  - Pre-installeret i alle browsere og OS
+  - Private key opbevares EKSTREMT sikkert (offline, HSM, vault)
+  - Bruges sjældent, kun til at signere intermediate CA's
+- Intermediate CA = mellemliggende certifikat
+  - Håndterer daglige operationer og udsteder end-entity certifikater
+  - Hvis kompromitteret: kan tilbagekaldes uden at ødelægge hele root
+  - Serveren skal sende BÅDE sit certifikat OG intermediate certifikat
+- End-entity = slutbruger certifikat (fx google.com's certifikat)
+- Validering af chain:
+  1. Verificer end-entity cert med intermediate CA's public key
+  2. Verificer intermediate cert med root CA's public key
+  3. Verificer root CA er i truststore
+  - Hele kæden skal være gyldig!
+- Eksempel: openssl s_client -connect google.com:443 -showcerts
+  - Viser hele certificate chain
 -->
 
 ---
