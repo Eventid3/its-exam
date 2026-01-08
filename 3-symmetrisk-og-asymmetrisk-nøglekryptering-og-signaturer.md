@@ -201,8 +201,6 @@ H2 = D(Sig, K_pub-s)
 H1 == H2 ? ✓
 ```
 
-Signering tjekkes som før
-
 <!--
 - **Hybrid model (fortrolighed + autenticitet + integritet)**. Bruges i fx PGP/S/MIME.
 - **Afsender**:
