@@ -1,7 +1,12 @@
 ---
-marp: true
-theme: default
+author: Esben Inglev
+theme: gaia
+date: Jan 2026
 paginate: true
+style: |
+  section {
+    font-size: 26px;
+  }
 ---
 
 # (U)SIKKER KODE #1/2 – BUFFER OVERFLOW OG CODE INJECTION

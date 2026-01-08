@@ -1,3 +1,14 @@
+---
+author: Esben Inglev
+theme: gaia
+date: Jan 2026
+paginate: true
+style: |
+  section {
+    font-size: 26px;
+  }
+---
+
 # OWASP Web Top 10: A1 og A2
 
 <!--
