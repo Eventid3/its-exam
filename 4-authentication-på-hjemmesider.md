@@ -39,8 +39,8 @@ Talking points:
 - Vigtigt at skelne mellem de to - først verificer identitet, derefter tildel rettigheder
 -->
 
-- Authentication: hvem man er
-- Authorization: hvad har man adgang til
+- **Authentication:** _Hvem_ man er
+- **Authorization:** _Hvad_ har man adgang til
 
 ---
 
@@ -94,7 +94,7 @@ Talking points:
 - Anvendelser: Session management (hvem er logget ind), personalization (præferencer), tracking (brugeradfærd)
 -->
 
-- Data der gemmes i tekstfiler
+- Data der gemmes i tekstfiler `Set-Cookie: <cookie-name>=<cookie-value>`
 - Placeres af websider
   - Lagre informationer om brugeren
 - Løser stateless problemet
@@ -104,7 +104,7 @@ Talking points:
 
 ---
 
-### Cookies
+### Cookies - Egenskaber
 
 <!--
 Talking points:
@@ -118,9 +118,9 @@ Talking points:
 - Sendes med hver request
   - Ulempe: giver mulighed for CSRF
 - Fylder max 4kb
-- Lifespan
+- Lifespan `Set-Cookie: ...; Expires=<date>`
   - Session / Persistant
-- Domæne
+- Domæne `Set-Cookie ...; Domain=<domain-value>`
   - First party / third party
 
 ---
@@ -139,7 +139,7 @@ Talking points:
   - evil.com kan sende cookies lagret af bank.com
 - Forsvar
   - CSRF Tokens
-  - SameSite Cookie Attribute med Strict eller Lax
+  - SameSite Cookie Attribute med Strict eller Lax `Set-Cookie: ...; SameSite=<value>`
 
 ---
 
@@ -163,7 +163,7 @@ Talking points:
 <!--
 Talking points:
 - JWT (JSON Web Token): Populær implementering af bearer tokens
-- Header: Algoritme (fx HMAC, RSA) og token type (JWT)
+- Header: Algoritme brugt til signatur (fx HMAC, RSA) og token type (JWT)
 - Payload: Claims som user ID, navn, roller, expiration time (exp)
 - Signatur: Sikrer at token ikke er manipuleret
 - Lagres typisk i localStorage (ikke cookies) for at undgå CSRF
