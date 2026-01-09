@@ -51,32 +51,6 @@ Talking points:
 
 ---
 
-### OWASP Top 10 2025 - Overblik
-
-<!--
-Talking points:
-- 2025 opdateringen introducerer to nye kategorier markeret med stjerne
-- A03 Software Supply Chain Failures er ny - reflekterer stigende supply chain attacks
-- A05 Injection er faldet fra #3 til #5 men er stadig ekstremt kritisk
-- A10 Mishandling of Exceptional Conditions er ny kategori om error handling
-- Listen afspejler udviklingen i trusselsbilledet baseret på real-world incidents
--->
-
-**Nye ændringer i 2025:**
-
-1. A01 - Broken Access Control
-2. A02 - Security Misconfiguration
-3. **A03 - Software Supply Chain Failures** ⭐ NY
-4. A04 - Cryptographic Failures
-5. **A05 - Injection**
-6. A06 - Insecure Design
-7. A07 - Authentication Failures
-8. A08 - Software & Data Integrity Failures
-9. A09 - Security Logging and Alerting Failures
-10. A10 - Mishandling of Exceptional Conditions ⭐ NY
-
----
-
 ### A03: Software Supply Chain Failures
 
 <!--
@@ -85,7 +59,7 @@ Talking points:
 - Moderne apps er bygget på hundredvis af tredjepartskomponenter - stor risiko
 - Komponenter med kendte CVE sårbarheder der ikke patches
 - Kompromitterede build systems: angriber får adgang til CI/CD og injicerer malware
-- Malicious packages: hackere uploader ondsindet kode til NPM, PyPI osv.
+- Malicious packages: hackere uploader ondsindet kode til NPM, VCCode plugins osv.
 - Opdateringer uden signaturverifikation: kan pushes af angribere
 - Uautentificerede komponenter: ingen verifikation af kilden
 -->
@@ -100,7 +74,7 @@ Talking points:
 - Kompromitterede build-systemer og CI/CD pipelines
 - Malicious packages og dependencies
 - Opdateringsmekanismer uden validering
-- Uautentificerede tredjepartskomponenter
+- Uauthentificerede tredjepartskomponenter
 
 ---
 
@@ -122,9 +96,6 @@ Talking points:
 - Account takeover af maintainers
 
 **2. Kompromitterede Build Systems**
-
-- SolarWinds (2020): Backdoor i signed updates
-- GlassWorm (2025): VS Code Marketplace angreb
 
 **3. Dependency Confusion**
 
@@ -166,11 +137,6 @@ found 23 vulnerabilities (5 moderate, 18 high)
 - Transitive dependencies (dependencies af dependencies)
 - Én sårbar pakke påvirker hele projektet
 - Automatiske opdateringer kan introducere malicious code
-
-**Real eksempler:**
-
-- `event-stream` (2018): Maintainer gav adgang til hacker
-- `ua-parser-js` (2021): 8 millioner downloads/uge, hijacked
 
 ---
 
@@ -369,10 +335,10 @@ Talking points:
 
 **1. Prepared Statements / Parameterized Queries**
 
-```java
-PreparedStatement stmt = conn.prepareStatement(
-  "SELECT * FROM users WHERE username = ?");
-stmt.setString(1, userInput);
+```csharp
+using var cmd = new SqlCommand(
+  "SELECT * FROM users WHERE username = @username", conn);
+cmd.Parameters.AddWithValue("@username", userInput);
 ```
 
 **2. Input Validation**
@@ -521,8 +487,6 @@ Talking points:
 - 'none' = DENY, 'self' = SAMEORIGIN
 - **SameSite Cookies:** Strict forhindrer cookies sendt i cross-site requests
 - Så selv hvis iframe loader, er bruger ikke authenticated
-- **Frame busting:** JavaScript der detekterer iframe og "bryder ud" (if (top != self) top.location = self.location)
-- Mindre pålidelig fordi JavaScript kan være disabled eller bypassed
 -->
 
 **1. X-Frame-Options Header**
@@ -546,8 +510,6 @@ Content-Security-Policy:
 Set-Cookie: session=abc123; SameSite=Strict
 ```
 
-**4. Frame Busting Scripts** (mindre pålidelig)
-
 ---
 
 ### DNS Rebinding
@@ -570,30 +532,6 @@ Talking points:
 **Definition:** Angreb der omgår Same-Origin Policy ved at manipulere DNS
 
 **Hvordan det virker:**
-
-1. Bruger besøger evil.com
-2. evil.com's DNS returnerer angribers IP
-3. Browser loader siden med JavaScript
-4. JavaScript laver nye requests til evil.com
-5. DNS returnerer nu INTERN IP (f.eks. 192.168.1.1)
-6. Browser tillader det (samme domain!)
-7. Angriber kan nu tilgå internal netværk
-
----
-
-### DNS Rebinding - Attack Flow
-
-<!--
-Talking points:
-- **Nøglen:** Meget kort TTL (Time To Live) på DNS record - 0 eller 1 sekund
-- Får browser til at lave ny DNS lookup hurtigt i stedet for at cache
-- Trin 1-2: Initial load fra public IP, JavaScript downloader
-- Trin 3-4: JavaScript laver ny fetch, DNS svarer nu med private IP
-- Trin 5: Browser checker origin - evil.com = evil.com, så det er tilladt!
-- Trin 6: Angriber kan nu læse router admin panel, ændre DNS settings, scan netværk
-- Kan tilgå IoT devices uden authentication, internal APIs, development servers
-- Real-world eksempel: Tilgå webcams, smart home devices
--->
 
 ```
 Trin 1: DNS Query for evil.com → 1.2.3.4 (angribers server)

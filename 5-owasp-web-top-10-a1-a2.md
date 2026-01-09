@@ -387,8 +387,6 @@ Talking points:
 **Ikke en komplet løsning**
 
 - Supplement til manuel testing
-- Finder kun kendte sårbarheder
-- Zero-days opdages ikke
 
 ---
 
