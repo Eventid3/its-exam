@@ -81,7 +81,6 @@ Talking points:
 - Horizontal Privilege Escalation: få adgang til andre brugeres data på samme niveau
 - Problemet er manglende server-side validering - klienten kan ikke stoles på
 - Angriber ændrer simpelthen ID i URL'en og får adgang til andres data
-- Løsning: Altid verificer server-side at den indloggede bruger ejer/må tilgå ressourcen
 -->
 
 **Sårbar kode:**
@@ -98,10 +97,6 @@ GET /api/user/123/profile
 **Problem:**
 
 - Ingen server-side validering af om requester ejer resourcen
-
-Løsning:
-
-- Valideringen skal ske server-side inden sensitiv data sendes
 
 ---
 
@@ -242,7 +237,7 @@ ASP.NET Trace Information:
 <!--
 Talking points:
 - **Missing security hardening:** Systemer ikke "hærdet" efter installation
-- Cloud permissions: S3 buckets offentligt tilgængelige, overly permissive IAM roles
+- Cloud permissions: Azure-Blob-Storage offentligt tilgængelige, overly permissive Azure roles
 - App servers: Tomcat, IIS, Apache med default insecure settings
 - Security headers mangler: ingen HSTS, CSP, X-Frame-Options
 - **Backward compatibility:** Gamle usikre features bibeholdt for ikke at bryde legacy systemer
@@ -254,6 +249,7 @@ Missing security hardening
 
 - Improperly configured permissions på cloud services
 - Security settings i app servers, frameworks, libraries ikke sat korrekt
+  - Man glemmer at ændre dem til noget sikkder
 - Server sender ikke security headers
 
 Backward compatibility prioriteret over sikkerhed
@@ -416,3 +412,5 @@ Talking points:
 - Security architecture reviews
 
 **Defense in depth!**
+
+---

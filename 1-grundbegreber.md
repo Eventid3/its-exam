@@ -153,7 +153,7 @@ Talking points:
 
 ### Grundbegreber
 
-**Vulneratility-Threat-Control Paradigm**
+**Vulnerability-Threat-Control Paradigm**
 
 _A Threat is blocked by a Control of a Vulneratility_
 
