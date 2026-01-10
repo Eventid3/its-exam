@@ -550,10 +550,7 @@ Trin 6: Angriber kontrollerer router, IoT devices etc.
 
 <!--
 Talking points:
-- **DNS validation:** Corporate/ISP DNS servers skal filtrere svar
-- Afvis resolution til private IP ranges (RFC1918: 10.x, 172.16.x, 192.168.x)
-- Forhindrer eksterne domæner fra at pege på interne adresser
-- **Host header validation:** Web app tjekker Host header i HTTP request
+- **Host header validation:** Lav en host header whitelist. Web app tjekker Host header i HTTP request
 - Reject hvis Host header er unexpected (ikke på whitelist)
 - Kan detektere når evil.com pludselig peger på localhost
 - **Browser DNS pinning:** Moderne browsere ignorer meget korte TTLs
@@ -561,17 +558,12 @@ Talking points:
 - Gør rebinding langsommere og mindre pålidelig
 -->
 
-**1. DNS Validation**
+**1. Host Header Validation**
 
-- DNS servers skal filtrere private IP ranges
-- Block resolution af eksterne domæner til interne IPs
-
-**2. Host Header Validation**
-
-- Verificer Host header i alle requests
+- Verificer Host header i alle requests - whitelist
 - Reject requests med unexpected hosts
 
-3. Browser DNS Caching
+**2. Browser DNS Caching**
 
 - Browsere omgår den korte TTL
 

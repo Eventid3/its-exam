@@ -144,6 +144,29 @@ Talking points:
 
 ---
 
+### Return Oriented Programming (ROP)
+
+<!--
+Talking points:
+- ROP: Avanceret exploit teknik designet til at omgå NX og ASLR
+- I stedet for at injicere ny kode, genbruger eksisterende legitim kode
+- **Return-to-libc:** Simpleste form - overskriver returadresse med adresse til system() i libc
+- Lægger "/bin/sh" pointer på stacken som argument til system()
+- **Gadgets:** Små code snippets (3-5 instruktioner) der ender med ret instruktion
+- Eksempel gadget: "pop rdi; ret" eller "mov eax, ebx; pop ebx; ret"
+- Ved at kæde mange gadget adresser på stacken kan man bygge helt program
+- Hver ret hopper til næste gadget - turing complete exploitation
+- Omgår NX fordi vi eksekverer eksisterende code sections (executable)
+- Kan omgå ASLR hvis man har info leak til at finde gadget adresser
+-->
+
+- Designet til at omgå **NX/DEP**
+- Bruger eksisterende, legitim kode (f.eks. i `libc`) i stedet for injiceret shellcode
+- **Return-to-libc**: Hopper direkte til f.eks. `system("/bin/sh")`
+- **Gadgets**: Små bidder kode der ender på `ret`. Ved at kæde disse adresser på stacken, kan angriberen bygge et helt program ud af "stumper"
+
+---
+
 ### Forsvar - ASLR
 
 <!--
@@ -163,29 +186,6 @@ Talking points:
 - Randomiserer hukommelsesadresser for stack, heap og biblioteker ved hver kørsel
 - Gør det svært for angriberen at forudsige, hvor deres shellcode eller systemfunktioner befinder sig
 - Kræver at angriberen gætter eller "lækker" en adresse for at ramme rigtigt
-
----
-
-### Return Oriented Programming (ROP)
-
-<!--
-Talking points:
-- ROP: Avanceret exploit teknik designet til at omgå NX og ASLR
-- I stedet for at injicere ny kode, genbruger eksisterende legitim kode
-- **Return-to-libc:** Simpleste form - overskriver returadresse med adresse til system() i libc
-- Lægger "/bin/sh" pointer på stacken som argument til system()
-- **Gadgets:** Små code snippets (3-5 instruktioner) der ender med ret instruktion
-- Eksempel gadget: "pop rdi; ret" eller "mov eax, ebx; pop ebx; ret"
-- Ved at kæde mange gadget adresser på stacken kan man bygge helt program
-- Hver ret hopper til næste gadget - turing complete exploitation
-- Omgår NX fordi vi eksekverer eksisterende code sections (executable)
-- Kan omgå ASLR hvis man har info leak til at finde gadget adresser
--->
-
-- Designet til at omgå **NX/DEP** og **ASLR**
-- Bruger eksisterende, legitim kode (f.eks. i `libc`) i stedet for injiceret shellcode
-- **Return-to-libc**: Hopper direkte til f.eks. `system("/bin/sh")`
-- **Gadgets**: Små bidder kode der ender på `ret`. Ved at kæde disse adresser på stacken, kan angriberen bygge et helt program ud af "stumper"
 
 ---
 
