@@ -11,22 +11,6 @@ style: |
 
 # 8 FYSISK (U)SIKKERHED OG (U)SIKRE OS – SECURE BOOT
 
-<!--
-Talking points:
-- Secure Boot sikrer at kun trusted software kører under boot processen
-- Kryptografiske signaturer verificerer hvert led i boot chain
-- Chain of Trust: Hardware root → firmware → bootloader → kernel → OS
-- Udfordringer: Vendor lock-in, key management, revocation complexity
-- iPhone case study viser praktisk implementation af secure boot
-- Relaterbar til Chain of Trust i certificates og code signing generelt
--->
-
-Forklar formålet og principperne i Secure Boot.
-Hvordan bruges kryptografi i Secure Boot?
-Redegør for nogle af udfordringerne i implementering af Secure Boot.
-Eksemplificer for eksempel med hvordan Secure Boot bruges på iPhone.
-Perspektiver til Chain of Trust mere generelt i IT sikkerhed og relevante øvelser.
-
 ---
 
 ### Secure Boot - Formål

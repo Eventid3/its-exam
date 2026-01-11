@@ -11,22 +11,6 @@ style: |
 
 # (U)SIKKER KODE #1/2 – BUFFER OVERFLOW OG CODE INJECTION
 
-<!--
-Talking points:
-- Buffer overflow er klassisk sårbarhed i C/C++ programmer uden bounds checking
-- Code injection udnytter buffer overflow til at få CPU til at køre angribers kode
-- Stack-baseret exploit - overskrivning af returadresser
-- Forsvarsmekanismer: NX-bit (non-executable stack) og ASLR (address randomization)
-- ROP (Return Oriented Programming) omgår disse forsvarsmekanismer
-- Praktisk øvelse demonstrerede exploitation process med GDB og shellcode
--->
-
-Forklar principperne i buffer overflow og code injection – tegn gerne en stack til at
-underbygge forklaringen.
-Beskriv to metoder, der bliver brugt til at forhindre code injection på stacken.
-Oprids hvordan ROP kan omgå disse metoder.
-Inddrag praktiske erfaringer fra øvelser.
-
 ---
 
 ### Stack
@@ -98,6 +82,8 @@ Talking points:
   1. Lokale variabler
   2. Gemt Base Pointer (EBP)
   3. **Returadressen (EIP)**
+
+<img src="./img/stack.png" height="50%" />
 
 ---
 
@@ -211,3 +197,5 @@ Talking points:
   - Adresse-læk: Find startadressen for bufferen (typisk via GDB).
   - Payload: Konstruktion af streng: [Padding] + [Ny returaddresse] + [Shellcode].
 - Resultat: Programmet returnerer til den injicerede shellcode frem for main.
+
+---

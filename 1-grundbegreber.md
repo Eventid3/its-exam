@@ -9,13 +9,6 @@ style: |
   }
 ---
 
-<!--
-Talking points:
-- Velkommen. Emnet er de grundlæggende begreber inden for IT-sikkerhed.
-- Vi skal se på de centrale begreber, hvordan man håndterer risici i en organisation, og vi slutter af med at kigge på ISO 27000-standarden.
-- Formålet er at bygge et fundament for resten af kurset.
--->
-
 # Grundbegreberne inden for IT-sikkerhed
 
 ---

@@ -11,12 +11,6 @@ style: |
 
 # Asymmetrisk nøglekryptering og digitale certifikater
 
-<!--
-- Introduktion til emnet: asymmetrisk kryptering og certifikater
-- Vigtigt for sikker kommunikation på internet
-- Bygger på matematisk relation mellem to nøgler
--->
-
 ---
 
 ### Asymmetrisk kryptering

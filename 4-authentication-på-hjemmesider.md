@@ -11,14 +11,6 @@ style: |
 
 # Autentifikation på hjemmesider
 
-<!--
-Talking points:
-- Dette emne handler om hvordan man verificerer brugere på web og services
-- Fokus på forskellige metoder: Basic auth, cookies og bearer tokens
-- OAuth2 og OpenIDConnect til delegeret adgang
-- OWASP A7 sårbarheder - kritiske sikkerhedsrisici ved autentifikation
--->
-
 ---
 
 ### Authentication & authorization

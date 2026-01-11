@@ -11,22 +11,6 @@ style: |
 
 # 9 (U)SIKKER KODE #2 – FUZZING
 
-<!--
-Talking points:
-- Fuzzing er automatiseret testing med ugyldige/tilfældige inputs
-- Finder bugs som buffer overflows, crashes og edge cases
-- Fordele: Automatisering, skalerbarhed, finder uventede bugs
-- Ulemper: Tidskrævende, begrænset scope, svært at nå dyb code coverage
-- Anti-fuzzing teknikker gør fuzzing mindre effektivt
-- Relation til security scanners og praktiske øvelseseksempler
--->
-
-Forklar hvordan fuzzing fungerer – tegn gerne en figur.
-Beskriv nogle fordele/ulemper ved fuzzing.
-Giv eksempler på bugs der kan findes med fuzzing, og relater til relevante øvelser.
-Hvad er anti-fuzzing?
-Perspektiver til security scanners (automatiske sårbarhedsscannere).
-
 ---
 
 ### Hvad er fuzzing?

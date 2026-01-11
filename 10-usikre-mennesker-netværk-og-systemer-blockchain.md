@@ -320,7 +320,7 @@ Talking points:
 
 **Mine forsøg:**
 
-```
+```bash
 …/exercises/blockchain ❯ ./main
 Difficulty 5. Mining block 1...
 Block mined: 0000064590b09f3a53711dadea123948fefc0a4358ddf0504b058fd5d20e75aa
@@ -392,3 +392,5 @@ Talking points:
 - Skalerbarhed (lav throughput)
 - Energiforbrug (PoW)
 - Irreversibilitet (fejl kan ikke rettes)
+
+---

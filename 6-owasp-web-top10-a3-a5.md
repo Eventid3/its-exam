@@ -11,23 +11,6 @@ style: |
 
 # OWASP Web Top 10: A3 og A5
 
-<!--
-Talking points:
-- Dette emne dækker A3 Software Supply Chain og A5 Injection fra OWASP Top 10 2025
-- Supply Chain: sårbarheder i dependencies, tredjepartskomponenter og build pipelines
-- Injection: SQL injection og XSS - stadig blandt de mest kritiske sårbarheder
-- Clickjacking og DNS Rebinding: to specifikke angrebsteknikker at kende
-- WAF (Web Application Firewall): defensive værktøjer på application layer
--->
-
-Redegør for hvad OWASP er og redegør for og vis eksempler på sårbarheder i
-følgende kategorier i OWASP Web Top 10 2025, samt forklar hvordan man kan sikre
-sig mod disse:
-A3 Software Supply Chain Failures
-A5 Injection (inkl. Cross-Site Scripting og SQL Injection)
-Samt redegør for følgende sårbarheder: Clickjacking og DNS Rebind.
-Og forklar hvad Web Application Firewalls er og hvad de kan bruges til.
-
 ---
 
 ### Hvad er OWASP?

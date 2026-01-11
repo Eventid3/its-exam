@@ -11,13 +11,6 @@ style: |
 
 # Symmetrisk og asymmetrisk nøglekryptering og digitale signaturer
 
-<!--
-- Introduktion: Symmetrisk/asymmetrisk kryptering, digitale signaturer.
-- Agenda: Redegørelse, eksempler, anvendelse i signaturer.
-- Fokus: Tillid til signaturer i praksis.
-- Perspektivering: Øvelser fra undervisningen.
--->
-
 ---
 
 ### Symmetrisk Kryptering
