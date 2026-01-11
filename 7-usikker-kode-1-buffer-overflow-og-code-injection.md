@@ -7,6 +7,11 @@ style: |
   section {
     font-size: 26px;
   }
+  img[alt~="right"] {
+    position: absolute;
+    bottom: 80px;
+    right: 120px;
+  }
 ---
 
 # (U)SIKKER KODE #1/2 – BUFFER OVERFLOW OG CODE INJECTION
@@ -83,7 +88,9 @@ Talking points:
   2. Gemt Base Pointer (EBP)
   3. **Returadressen (EIP)**
 
-<img src="./img/stack.png" height="50%" />
+<!-- <img src="./img/stack.png" height="50%" /> -->
+
+![right](./img/stack.png)
 
 ---
 
@@ -182,11 +189,9 @@ Talking points:
 - Målet var at overtage program execution flow via vulnerable strcpy
 - **Sårbarhed:** strcpy(buffer, argv[1]) kopierer uden længde check
 - **Fuzzing proces:** Send lange strenge for at finde crash point
-- Find offset til returadresse ved at bruge unique pattern (De Bruijn sequence)
-- GDB viser at EIP = 0x41424344 - matcher pattern på offset 76
-- **Adresse leak:** Brug GDB til at finde buffer start adresse (x/200x $esp)
-- **Payload konstruktion:** [76 bytes padding] + [buffer adresse] + [NOP sled] + [shellcode]
-- NOP sled (0x90 bytes) giver "landing zone" så præcis adresse ikke kritisk
+- Find offset til returadresse ved at bruge unique pattern
+- GDB viser at EIP = 0x42424242 - matcher pattern på BBBB
+- **Payload konstruktion:** [X bytes padding] + [buffer adresse] + [shellcode]
 - **Resultat:** Program hopper til vores shellcode, spawner shell med program's privilegier
 -->
 
