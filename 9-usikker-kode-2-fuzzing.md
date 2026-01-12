@@ -31,7 +31,7 @@ Talking points:
 
 - Finder edge cases og uventede fejl
 - Finder fejl som compiler warnings og static analysis ikke finder
-- Kan være black-box eller white-box (med instrumentation)
+- Kan være black-box eller grey/white-box (med instrumentation)
 - Bruges i sikkerhedstestning og kvalitetssikring
 
 ---
@@ -185,27 +185,19 @@ Talking points:
 - **Buffer overflow øvelser:** Manuelle exploits kunne automatiseres med fuzzing
 - Fuzzing ville hurtigt finde strcpy/memcpy bugs ved at sende lange strenge
 - Identificerer manglende input validering og bounds checking
-- **Web application security:** Fuzzing HTTP requests finder injection flaws
-- SQL injection: Send ' OR 1=1 --, UNION SELECT, etc.
-- XSS: Send <script>, javascript:, on-event handlers
-- Command injection: Send ; rm -rf, && cat /etc/passwd
-- **Binary exploitation:** Fuzzing finder crash points der kan weaponizes
-- Initial crash discovery, derefter manual exploitation
 -->
 
 **Buffer overflow øvelser**
 
 - Fuzzing ville hurtigt finde ukontrollerede strcpy/memcpy
+
+Vi lavede manuel fuzzing:
+
+1. `>./main AAAAAAAABBBBCCCC`
+2. `>./main AAAAAAAABBBBCCCCDDDD`
+
 - Kan identificere manglende input validering
-
-**Web application security**
-
-- Fuzzing af HTTP requests finder injection flaws
-- SQL injection, XSS, command injection
-
-**Binary exploitation**
-
-- Fuzzing finder crash points der kan exploiteres
+- Kan dermed også bruges at adversaries/attackers
 
 ---
 
@@ -221,7 +213,7 @@ Talking points:
 - **Kompleks state requirements:** Kræver sekvens af gyldige inputs (login → navigate → action)
 - Fuzzer når aldrig dyb funktionalitet uden at følge workflow
 - **Timing checks:** Måler tid mellem inputs, detekterer automated fuzzing
-- **Environmental checks:** Detekterer VM/sandbox miljøer via hardware signatures
+- Timing delays
 -->
 
 Forsvarsteknikker som gør fuzzing mindre effektivt:
@@ -230,7 +222,9 @@ Forsvarsteknikker som gør fuzzing mindre effektivt:
 - **Magic bytes** - kræver specifikke værdier i input
 - **Kompleks state** - kræver rækkefølge af gyldige inputs
 - **Timing checks** - detekterer for hurtig input generation
-- **Environmental checks** - opdager VM/sandbox miljøer
+- **Timing delays**
+- **Polymorphic code** - lav kode der ser forskelligt ud, men udfører det samme
+  - Gør crashes sværer at kategorisere og forhindre reverse engineering
 
 ---
 

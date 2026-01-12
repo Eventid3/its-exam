@@ -77,6 +77,18 @@ Talking points:
 
 ---
 
+### Secure Boot - Eksempel
+
+**Bootloader -> OS-Kernel**
+
+1. Bootloader kigger på OS-Kernel signaturblock og finder certifikatet -> `K_pub-kernel, sig`
+2. Verificerer signeren ved at kigge i _allowed database_
+3. Bootloader udregner sit eget hash af OS-Kernel koden -> `hash1`
+4. Bootloader dekrypterer signaturen -> `hash2 = D(sig, K_pub-kernel)`
+5. Bootloader sammenligner de to hashes
+
+---
+
 ### Secure Boot - Udfordringer
 
 <!--
@@ -95,7 +107,7 @@ Talking points:
 
 - **Vendor Lock-in**: Kan gøre det svært at installere alternative OS (f.eks. Linux)
 - **Key Management**: Hvem ejer nøglerne? (Microsoft vs. Hardware producent)
-- **Revocation (DBX)**: Hvis en nøgle bliver lækket, skal den "sortlistes". Dette er svært at opdatere sikkert uden at "bricke" enheden.
+- **Revocation (DBX)**: Hvis en nøgle bliver lækket, skal den "blacklistes". Dette er svært at opdatere sikkert uden at "bricke" enheden.
 - **Sårbarheder i firmware**: Hvis selve UEFI har en bug, falder hele korthuset.
 
 ---
@@ -121,30 +133,6 @@ Talking points:
 - **Kernel**: Selve kernen af iOS, som verificeres af iBoot.
 - **System Software & Apps**: Slutningen af kæden.
 - **Princip**: Hvert led tjekker signaturen på det næste, før det får lov at køre.
-
----
-
-### Angreb på Chain of Trust (Jailbreaking)
-
-<!--
-Talking points:
-- Jailbreaking udnytter bugs i secure boot chain til at omgå begrænsninger
-- **Sårbarhed:** Bug i iBoot eller LLB code giver Code Execution
-- Bootrom bugs er "jackpot" fordi immutable - permanent exploit
-- **Privilege Escalation:** Exploit opnår kernel-level adgang (root)
-- **Patching:** Malicious code patcher boot files i memory for at disable signature checks
-- Runtime patching så næste led ikke verificeres
-- **Konsekvens:** Unsigned code (jailbreak tweaks, pirated apps) kan nu køre
-- **iBoot Leak (2018):** iBoot source code lækket på GitHub
-- Gjorde det meget lettere for security researchers at finde exploitable bugs
-- Apple var nødt til at redesign store dele af boot process
--->
-
-- **Sårbarhed**: Fejl i koden (f.eks. iBoot eller LLB) udnyttes til "Code Execution".
-- **Privilege Escalation**: Hackeren opnår "Root"-adgang til systemet.
-- **Patching**: Angriberen "patcher" boot-filerne for at fjerne signaturtjek.
-- **Konsekvens**: Når tjekket er fjernet, kan uautoriseret kode (f.eks. Jailbreak) indlæses.
-- **iBoot Leak (2018)**: Kildekoden til iBoot blev lækket, hvilket gjorde det lettere for hackere at finde sårbarheder i boot-kæden.
 
 ---
 
