@@ -21,13 +21,6 @@ Talking points:
 - Alternative consensus mekanismer som Proof-of-Stake adresserer nogle problemer
 -->
 
-Forklar hvordan en blockchain virker. Tegn gerne et diagram.
-Hvad er det for et (generelt) problem blockchain kan løse, og under hvilke
-forudsætninger?
-Beskriv proof-of-work, og hvilke problemer, der er forbundet dermed.
-Inddrag øvelses erfaringer med blockchain og mining, fx hvor svær en mining du
-rimeligt kan udføre på din egen computer
-
 ---
 
 ### Hvad er en blockchain?
@@ -163,7 +156,7 @@ Talking points:
 - Bitcoin: 6 confirmations (blocks) anses for irreversibelt sikkert
 -->
 
-![Chain](img/blockchain-chain.png)
+<img src="img/blockchain-chain.png" height="60%" />
 
 - Første block: Genesis block
 - Ændring i én blok → ændrer hash → bryder kæden

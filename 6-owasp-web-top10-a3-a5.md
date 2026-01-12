@@ -56,7 +56,6 @@ Talking points:
 - Brug af komponenter med kendte sårbarheder
 - Kompromitterede build-systemer og CI/CD pipelines
 - Malicious packages og dependencies
-- Opdateringsmekanismer uden validering
 - Uauthentificerede tredjepartskomponenter
 
 ---
@@ -173,8 +172,6 @@ Talking points:
 
 - Implementer access control og MFA
 - Audit logs for alle ændringer
-- Isoler build environments
-- Principle of least privilege
 
 **5. Developer Security**
 

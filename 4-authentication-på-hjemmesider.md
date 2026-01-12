@@ -322,3 +322,5 @@ Talking points:
 - Rate limiting på login endpoints
 - Account lockout efter X fejlede forsøg
 - Multi-Factor Authentication (MFA)
+
+---
