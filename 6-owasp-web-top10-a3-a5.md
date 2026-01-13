@@ -126,59 +126,25 @@ found 23 vulnerabilities (5 moderate, 18 high)
 
 <!--
 Talking points:
-- **SBOM (Software Bill of Materials):** Komplet liste over alle komponenter i din software
-- Gør det muligt at identificere påvirkede systemer når ny CVE opdages
+- **Retire.js**: scanner for vulnerable js packages
 - **Trusted sources:** Download kun fra officielle repositories, ikke tilfældige GitHub links
-- **Signature verification:** Verificer at packages er signeret af legitime maintainers
-- **Checksums:** SHA256 hash verifikation sikrer fil ikke er manipuleret
-- **CVE scanning:** Automatisk check mod vulnerability databases (NVD, Snyk, etc.)
-- **SCA værktøjer:** Software Composition Analysis - Snyk, Dependabot, WhiteSource
 -->
 
-**1. Software Bill of Materials (SBOM)**
+**1. Verificer og Valider**
 
-- Vedligehold komplet oversigt over komponenter
-- Track dependencies og transitive dependencies
+- Brug `npm audit`
+- Brug retire.js
+- Brug kun trusted sources
 
-**2. Verificer og Valider**
-
-- Brug kun trusted sources og signerede packages
-- Implementer signature verification
-- Check checksums
-
-**3. Kontinuerlig Monitorering**
-
-- Scan for CVEs i dependencies
-- Automatiser opdateringer hvor muligt
-- Brug SCA (Software Composition Analysis) værktøjer
-
----
-
-### A03: Sikringsmetoder (fortsat)
-
-<!--
-Talking points:
-- **CI/CD hardening:** Build pipelines er kritiske targets - kræver Multi-Factor Authentication
-- **Audit logs:** Track hvem der ændrer build scripts og deployments
-- **Isoleret build miljø:** Sandboxed containers så kompromittering ikke spreder sig
-- **Least privilege:** Build agents har kun de permissions de absolut behøver
-- **Developer workstations:** Ofte weakest link - antivirus, disk encryption, screen lock
-- **IDE extensions:** VS Code extensions kan være malware (GlassWorm eksempel)
-- **Security awareness:** Train developers til at spotte phishing, typosquatting
-- **Code review:** Fire øjne princip - andet par øjne kan spotte suspekt dependency tilføjelse
--->
-
-**4. Hardned CI/CD Pipeline**
+2. Hardned CI/CD Pipeline
 
 - Implementer access control og MFA
-- Audit logs for alle ændringer
 
-**5. Developer Security**
+3. Developer Security
 
 - Beskyt developer workstations
 - Kontroller IDE extensions
-- Security awareness træning
-- Code review processer
+- Code review
 
 ---
 
@@ -346,9 +312,7 @@ Talking points:
 **3. Output Encoding**
 
 - HTML encoding: `<` → `&lt;`
-- JavaScript encoding
 - URL encoding
-- CSS encoding
 - Context-aware escaping
 
 **4. Brug Sikre Frameworks**
@@ -367,11 +331,6 @@ Talking points:
 - default-src 'self': Kun load resources fra eget domæne
 - script-src: Kun scripts fra self og trusted.cdn.com tilladt
 - Blokerer inline scripts og eval() by default - stoppes XSS effektivt
-- **Least Privilege:** Database user har kun SELECT på user table, ikke DROP/DELETE
-- Separate read-only vs read-write accounts
-- App bruger aldrig admin credentials - begrænser skaden ved SQL injection
-- **Testing:** SAST scanner kildekode for injection patterns, DAST tester running app
-- Penetration testing af security eksperter finder komplekse injection chains
 -->
 
 **5. Content Security Policy (CSP)**
@@ -381,18 +340,6 @@ Content-Security-Policy:
   default-src 'self';
   script-src 'self' trusted.cdn.com
 ```
-
-**6. Principle of Least Privilege**
-
-- Database bruger med minimale rettigheder
-- Separate læse/skrive accounts
-- Ingen admin rettigheder til app
-
-**7. Testing**
-
-- Static Analysis (SAST)
-- Dynamic Analysis (DAST)
-- Penetration testing
 
 ---
 
@@ -516,10 +463,11 @@ Talking points:
 ```
 Trin 1: DNS Query for evil.com → 1.2.3.4 (angribers server)
 Trin 2: Browser loader JavaScript fra 1.2.3.4
-Trin 3: JS laver ny request til evil.com
-Trin 4: DNS Query for evil.com → 192.168.1.1 (router)
-Trin 5: Browser tillader (samme origin: evil.com)
-Trin 6: Angriber kontrollerer router, IoT devices etc.
+Trin 3: Angriber ændre IP for evil.com fra 1.2.3.4 til 192.168.1.1
+Trin 4: JS laver ny request til evil.com
+Trin 5: DNS Query for evil.com → 192.168.1.1 (router)
+Trin 6: Browser tillader (samme origin: evil.com)
+Trin 7: Angriber kontrollerer router, IoT devices etc.
 ```
 
 **Nøgle:** Meget kort TTL (0-1 sekund) på DNS record

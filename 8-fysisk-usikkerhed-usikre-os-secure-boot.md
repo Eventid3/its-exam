@@ -35,9 +35,11 @@ Talking points:
 
 <!--
 Talking points:
-- **Root of Trust:** Hardware chip (TPM eller Secure Enclave) der er immutable
+- **Root of Trust:** Hardware chip der er immutable
 - Kan ikke modificeres selv med fysisk adgang - burned into silicon
-- **UEFI Firmware:** First software to run, verificerer bootloader
+- Hardware indeholder OTP fuses med public key - verificerer Secure Bootloader
+- Secure Bootlader verificerer UEFI Firmware
+- **UEFI Firmware:** First software to run, verificerer OS bootloader
 - db (database) indeholder public keys af trusted bootloaders
 - **Bootloader:** GRUB (Linux) eller Windows Boot Manager verificeres af UEFI
 - Bootloader verificerer derefter kernel signaturer
@@ -47,6 +49,7 @@ Talking points:
 -->
 
 - **Root of Trust**: Hardwaren starter processen (Immutable)
+- Secure Bootloader verificerer UEFI firmware signatur
 - UEFI Firmware tjekker signaturer mod en database af godkendte nøgler (**db**)
 - UEFI tjekker bootloaderen (f.eks. GRUB eller Windows Boot Manager)
 - Bootloaderen tjekker OS-kernel og drivere
