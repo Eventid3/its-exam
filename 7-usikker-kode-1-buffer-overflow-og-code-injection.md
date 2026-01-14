@@ -182,7 +182,18 @@ Talking points:
 
 ---
 
-### Praktisk øvelse – Stack Overflow
+### Forsvar - Canary Cookie
+
+- Compiler implementeret forsvar
+- Placerer en "canary"-værdi på stacken under function prologue
+- Tjekkes inden funktionen returnerer (ret)
+- Hvis canary'en er ændret → programmet crasher
+- Effektiv mod både Code Injection og ROP, da begge kræver overskrivning af returadresse
+- Kan omgås hvis angriber kan "lække" canary-værdien via anden sårbarhed
+
+---
+
+### Praktisk øvelse - Code injection
 
 <!--
 Talking points:

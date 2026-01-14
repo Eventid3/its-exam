@@ -49,10 +49,11 @@ Talking points:
 -->
 
 - **Root of Trust**: Hardwaren starter processen (Immutable)
-- Secure Bootloader verificerer UEFI firmware signatur
-- UEFI Firmware tjekker signaturer mod en database af godkendte nøgler (**db**)
-- UEFI tjekker bootloaderen (f.eks. GRUB eller Windows Boot Manager)
-- Bootloaderen tjekker OS-kernel og drivere
+  - OTP fuses indeholder den **første public key** (burned into silicon)
+- **Secure Bootloader** verificeres af hardware og tjekker derefter UEFI firmware
+- **UEFI Firmware** tjekker bootloaderen mod en database af godkendte nøgler (**db**)
+  - db kan indeholde flere trusted keys (mere fleksibel end OTP fuses)
+- Bootloaderen (f.eks. GRUB eller Windows Boot Manager) tjekker OS-kernel og drivere
 - Hvert led verificerer det næste, før kontrollen overgives
 
 ---
