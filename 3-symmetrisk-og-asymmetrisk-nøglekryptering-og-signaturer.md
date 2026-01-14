@@ -13,13 +13,24 @@ style: |
 
 ---
 
+### Kryptering grundbegreber
+
+- Plaintext
+- Ciphertext
+- Encryption/Encipher
+- Decryption/Decipher
+- Substitution
+  - Giver confusion
+- Transposition
+  - Giver diffusion
+
+---
+
 ### Symmetrisk Kryptering
 
 - En nøgle til encryption og decryption
 - Ulempe: kræver deling (usikkert)
 - Fordel: performance
-- AES ✔
-- DES ❌
 
 **Sender**
 
@@ -44,22 +55,24 @@ D(C, K)        // "Hej Poul"
 
 ---
 
-### Symmetrisk Kryptering
+### Symmetrisk Kryptering - Metoder
 
 - Stream ciphers
   - Responsivt
   - Er modtagelig overfor insertions
   - Lav diffusion
+  - Algoritmer: ChaCha20 | Salsa20
 - Block ciphers
   - Hver block er afhængig af den forrige
   - Initialization vector
   - Langsommere, men bedre diffusion
+  - Algoritmer: AES ✔ | DES ❌
 
 <!--
 - **Stream ciphers**:
   - Krypterer løbende (bit/byte).
   - Fordel: Responsivt (real-tid).
-  - Ulempe: Sårbar overfor 'insertions', lav diffusion.
+  - Ulempe: Sårbar overfor 'insertions', lav diffusion (transposition/ombytning).
 - **Block ciphers**:
   - Krypterer i faste blokke.
   - Bruger 'chaining' (fx CBC) -> hver blok afhænger af forrige.

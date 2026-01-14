@@ -19,11 +19,17 @@ style: |
   - Private & public
 - Fordel: Vi behøver ikke at dele samme nøgle (usikkert)
 - Ulempe: Langsommere end symmetrisk kryptering
+- Algoritmer:
+  - RSA
+  - ECC
 
 <!--
 - Grundprincippet: et nøglepar, public kan deles frit
 - Løser key distribution problemet fra symmetrisk kryptering
 - Performance trade-off: langsommere men mere sikkert
+- RSA: ældre, baseret på primtal faktorisering
+- ECC: nyere, hurtigere med kortere nøgler
+- Begge bruges i praksis i dag
 -->
 
 ---
@@ -44,21 +50,6 @@ D(C, K_priv-r) -> P   // P = "Hej Poul!"
 - Eksempel på flow: krypterer med modtagers public key
 - Kun modtager kan dekryptere med sin private key
 - Nøglerne er matematisk forbundet men kan byttes om
--->
-
----
-
-### Asymmetrisk kryptering
-
-**Typer**
-
-- RSA
-- ECC
-
-<!--
-- RSA: ældre, baseret på primtal faktorisering
-- ECC: nyere, hurtigere med kortere nøgler
-- Begge bruges i praksis i dag
 -->
 
 ---

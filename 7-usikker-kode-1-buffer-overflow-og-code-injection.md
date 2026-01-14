@@ -202,5 +202,3 @@ Talking points:
   - Adresse-læk: Find startadressen for bufferen (typisk via GDB).
   - Payload: Konstruktion af streng: [Padding] + [Ny returaddresse] + [Shellcode].
 - Resultat: Programmet returnerer til den injicerede shellcode frem for main.
-
----

@@ -5,6 +5,7 @@ date: Jan 2026
 paginate: true
 style: |
   section {
+    padding: 40;
     font-size: 26px;
   }
 ---
@@ -41,9 +42,10 @@ Talking points:
 - Supply Chain Failures: sikkerhedsproblemer i hele software development lifecycle
 - Moderne apps er bygget på hundredvis af tredjepartskomponenter - stor risiko
 - Komponenter med kendte CVE sårbarheder der ikke patches
+- **Log4Shell:** CVE-2021-44228 - kritisk Remote Code Execution i Log4j library, påvirkede millioner af apps
 - Kompromitterede build systems: angriber får adgang til CI/CD og injicerer malware
 - Malicious packages: hackere uploader ondsindet kode til NPM, VCCode plugins osv.
-- Opdateringer uden signaturverifikation: kan pushes af angribere
+- **Dependency Confusion:** Intern pakke "company-utils" vs public "company-utils" - package manager vælger forkert
 - Uautentificerede komponenter: ingen verifikation af kilden
 -->
 
@@ -56,36 +58,11 @@ Talking points:
 - Brug af komponenter med kendte sårbarheder
 - Kompromitterede build-systemer og CI/CD pipelines
 - Malicious packages og dependencies
+  - Typosquatting (f.eks. "reqeusts" i stedet for "requests")
+  - Account takeover af maintainers
+- Dependency confusion
+  - Public package overtager internal dependency navn
 - Uauthentificerede tredjepartskomponenter
-
----
-
-### A03: Angrebsvektorer
-
-<!--
-Talking points:
-- **Typosquatting:** Angriber uploader "reqeusts" håber på udviklere laver stavefejl
-- **Account takeover:** Hacker får adgang til maintainers NPM account, pusher malware
-- **SolarWinds:** Historisk angreb hvor build server blev kompromitteret, malware i alle updates
-- **GlassWorm:** 2025 angreb på VS Code extensions - viser aktualiteten
-- **Dependency Confusion:** Intern pakke "company-utils" vs public "company-utils" - package manager vælger forkert
-- **Log4Shell:** CVE-2021-44228 - kritisk Remote Code Execution i Log4j library, påvirkede millioner af apps
--->
-
-**1. Malicious Packages**
-
-- Typosquatting (f.eks. "reqeusts" i stedet for "requests")
-- Account takeover af maintainers
-
-**2. Kompromitterede Build Systems**
-
-**3. Dependency Confusion**
-
-- Public package overtager internal dependency navn
-
-**4. Vulnerable Components**
-
-- Log4Shell (CVE-2021-44228): Kritisk RCE
 
 ---
 
@@ -136,11 +113,11 @@ Talking points:
 - Brug retire.js
 - Brug kun trusted sources
 
-2. Hardned CI/CD Pipeline
+**2. Hardned CI/CD Pipeline**
 
 - Implementer access control og MFA
 
-3. Developer Security
+**3. Developer Security**
 
 - Beskyt developer workstations
 - Kontroller IDE extensions
@@ -240,6 +217,10 @@ site.com/search?q=<script>alert('XSS')</script>
 
 **3. DOM-based XSS:** Client-side manipulation
 
+```html
+element.innerHTML = untrusted_data;
+```
+
 ---
 
 ### XSS - Konsekvenser
@@ -258,7 +239,6 @@ Talking points:
 **Hvad kan en angriber gøre?**
 
 - Stjæle session cookies → Account takeover
-- Keylogging
 - Phishing attacks
 - Defacement af website
 - Udfør handlinger som ofret
