@@ -195,9 +195,13 @@ Step-by-step for modtager:
    - Truststore
    - Root certificates
 2. Verificer CA's signatur:
-   H1 = Hash(Cert_Bob)
-   H2 = D(Sig_CA, K_pub-CA)
-   H1 == H2 ? ✓
+
+```
+H1 = Hash(Cert_Bob)
+H2 = D(Sig_CA, K_pub-CA)
+H1 == H2 ? ✓
+```
+
 3. Tjek gyldighed:
    - Er certifikatet udløbet?
    - Er det tilbagekaldt? (CRL/OCSP)
@@ -211,6 +215,9 @@ Step-by-step for modtager:
 - Tjek om certifikatet er gyldigt og ikke revoked
 - Tjek om identiteten matcher hvem vi taler med
 - Chain of trust: tillid til CA = tillid til certifikat
+- CRL (Certificate Revocation List): Liste over revoked certs
+- OCSP (Online Certificate Status Protocol): Real-time status check
+- OCSP er nyere og foretrækkes, men CRL bruges stadig
 -->
 
 ---
