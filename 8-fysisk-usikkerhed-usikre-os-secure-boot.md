@@ -42,7 +42,7 @@ Talking points:
 - **UEFI Firmware:** First software to run, verificerer OS bootloader
 - db (database) indeholder public keys af trusted bootloaders
 - **Bootloader:** GRUB (Linux) eller Windows Boot Manager verificeres af UEFI
-- Bootloader verificerer derefter kernel signaturer
+- Bootloader verificerer derefter kernel signaturer.
 - **Kernel og drivers:** OS kernel og signed drivers verificeres før load
 - **Hvert led verificerer det næste:** Broken chain = boot failure
 - Kontrollen overgives kun hvis signatur er valid
